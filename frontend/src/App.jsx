@@ -5,14 +5,16 @@ import { Camera, Upload, AlertTriangle, Activity, Users, Play, Pause, Loader2, D
 import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API_URL = 'http://localhost:5000/analyze';
-const VIDEO_UPLOAD_URL = 'http://localhost:5000/upload_video';
-const VIDEO_FEED_URL = 'http://localhost:5000/video_feed';
-const STATS_URL = 'http://localhost:5000/current_count';
-const REPORT_URL = 'http://localhost:5000/download_report';
-const HISTORY_URL = 'http://localhost:5000/history';
-const SESSION_URL = 'http://localhost:5000/video_history';
-const CLEAR_HISTORY_URL = 'http://localhost:5000/clear_history';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+const API_URL = `${BASE_URL}/analyze`;
+const VIDEO_UPLOAD_URL = `${BASE_URL}/upload_video`;
+const VIDEO_FEED_URL = `${BASE_URL}/video_feed`;
+const STATS_URL = `${BASE_URL}/current_count`;
+const REPORT_URL = `${BASE_URL}/download_report`;
+const HISTORY_URL = `${BASE_URL}/history`;
+const SESSION_URL = `${BASE_URL}/video_history`;
+const CLEAR_HISTORY_URL = `${BASE_URL}/clear_history`;
 
 function App() {
     const [source, setSource] = useState('image'); // 'image' | 'video' | 'history'
