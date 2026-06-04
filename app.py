@@ -87,9 +87,15 @@ def load_model():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = CSRNet().to(device)
     try:
-        model.load_state_dict(torch.load('best_csrnet_shanghaiA.pth', map_location=device))
-    except:
-        st.warning("⚠️ Model file not found. Running with random weights (Hackathon Demo Mode).")
+        state_dict = torch.load('crowd.pth', map_location=device)
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            new_key = k.replace('module.', '') if k.startswith('module.') else k
+            if new_key != 'n_averaged':
+                new_state_dict[new_key] = v
+        model.load_state_dict(new_state_dict)
+    except Exception as e:
+        st.warning(f"⚠️ Model file not found or failed to load: {e}. Running with random weights (Hackathon Demo Mode).")
     model.eval()
     return model, device
 

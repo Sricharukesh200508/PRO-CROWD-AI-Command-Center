@@ -41,10 +41,16 @@ def load_model():
     # Load CSRNet
     csr_model = CSRNet().to(device)
     try:
-        csr_model.load_state_dict(torch.load('../best_csrnet_shanghaiA.pth', map_location=device))
+        state_dict = torch.load('../crowd.pth', map_location=device)
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            new_key = k.replace('module.', '') if k.startswith('module.') else k
+            if new_key != 'n_averaged':
+                new_state_dict[new_key] = v
+        csr_model.load_state_dict(new_state_dict)
         print("✅ CSRNet loaded.")
-    except:
-        print("⚠️ CSRNet weights not found. Demo mode active.")
+    except Exception as e:
+        print(f"⚠️ CSRNet weights not found or failed to load: {e}. Demo mode active.")
     csr_model.eval()
     
     # Load YOLO
