@@ -4,8 +4,9 @@ flask-cors
 torch
 torchvision
 pillow
-numpy
-opencv-python
+numpy<2
+opencv-python-headless
+gunicorn
 matplotlib
 pandas
 reportlab
