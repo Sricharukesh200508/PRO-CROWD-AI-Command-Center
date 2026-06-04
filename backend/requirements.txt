@@ -1,0 +1,11 @@
+ultralytics
+flask
+flask-cors
+torch
+torchvision
+pillow
+numpy
+opencv-python
+matplotlib
+pandas
+reportlab
